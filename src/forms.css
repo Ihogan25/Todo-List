@@ -1,0 +1,150 @@
+
+.forms-cover{
+    position:absolute;
+    display: none;
+    height: 100vh;
+    width: 100%;
+    background-color: rgb(199, 199, 199);
+    opacity: .9;
+}
+
+.project-form{
+    opacity: 1;
+    position: relative;
+    background-color: white;
+    height: 10rem;
+    width: 20rem;
+    border-radius: 5px;
+    top: 4.5rem;
+    left: 25rem;
+    display: none;
+    align-items: center;
+    border-top: 1rem solid olivedrab;
+    justify-content: center;
+}
+
+
+.task-form {
+    opacity: 1;
+    position: absolute;
+    background-color: white;
+    height: 10rem;
+    width: 20rem;
+    border-radius: 5px;
+    top: 4.5rem;
+    left: 98rem;
+    display: none;
+    align-items: center;
+    border-top: 1rem solid olivedrab;
+    justify-content: center;
+
+}
+.form {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.form input { 
+    margin-bottom: 1rem;
+}
+
+.form button {
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid olivedrab;
+    margin-bottom: .5rem;
+    cursor: pointer;
+}
+
+
+.cancel:hover {
+    color: white;
+    background-color: red;
+}
+
+.submit-form:hover {
+    background-color: olivedrab;
+    color: white;
+}
+
+.specificity{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+}
+.specificity div {
+    height: 3rem;
+    width: 75%;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: .5rem solid olivedrab;
+}
+
+.specificity div:hover {
+    background-color: olivedrab;
+    color: white;
+}
+
+
+
+.project-head{
+    margin-bottom: 10px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    border-bottom: 1px solid black;
+    font-size: 2rem;
+    padding: 10px;
+}
+
+.project-head button {
+    background-color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    border: none;
+}
+
+.project-head button:hover {
+    background-color: olivedrab;
+    color: white;
+}
+
+.projects-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    
+}
+
+.project {
+    height: 3rem;
+    width: 75%;
+    border-radius: 5px;
+    border: 1px solid black;
+    border-top: 10px solid olivedrab;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    cursor: pointer;
+}
+
+.project:hover {
+    background-color: olivedrab;
+    color: white;
+}

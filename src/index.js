@@ -1,27 +1,22 @@
 import './style.css';
-
-const newProjectBtn = document.getElementById('new-project');
+import './forms.css';
+import forms from '../dist/showforms.js';
+import createProject from '../dist/createProject.js';
 const projects = [];
-
-
-
-class Project {
-    constructor(title) {
-        this.title = title,
-        this.tasks = [];
-
-    }
-}
+export default projects;
 
 
 
 
+//display forms and remove forms
+const newProjectBtn = document.getElementById('new-project');
+const cancelProjectBtn = document.getElementById('cancel-project');
+newProjectBtn.addEventListener('click', forms.showProjectForm);
+cancelProjectBtn.addEventListener('click', forms.rmProjForm);
+const cancelTaskBtn = document.getElementById('cancel-task');
+cancelTaskBtn.addEventListener('click', forms.rmTaskForm);
 
-
-
-
-
-newProjectBtn.addEventListener('click', function(){
-    let projectForm = document.getElementById('project-form');
-    projectForm.style.display = 'block'
-})
+//addprojects
+const smbtProjBtn = document.getElementById('submit-project');
+smbtProjBtn.addEventListener('click', createProject.addProject);
+smbtProjBtn.addEventListener('click', forms.rmProjForm);

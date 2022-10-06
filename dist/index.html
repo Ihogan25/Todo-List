@@ -13,7 +13,6 @@
         <h1>To-Do List</h2>
     </div>
 
-
     <!--Main content-->
     <main class="main-container">
         <!--Side bar-->
@@ -23,48 +22,47 @@
                 <div>Today</div>
                 <div>This Week</div>
             </div>
-
             <div class="projects">
                 <div class="project-head">Projects<button id="new-project">+</button></div>
+                <div class="projects-list" id="projects-list">
 
-
-                <div class="projects-list">
-                    <div class="project">Project 1</div>
                 </div>
             </div>
-
         </div>
         <!--main content-->
         <div class="content">
-
             <!-- title  for current projects/project-->
             <div class="title">
-                <h2 id="title">Your Tasks</h2>
+                <h2 id="main-title">Project 1</h2>
             </div>
-
-
-            <!-- display tasks-->
-            <div class="tasks">
-                <div class="task-list">
+            <button class="add-task" id="add-task-btn">Add task</button>    
+            <div class="tasks-list">
                     <div class="task"></div>
-                </div>
+                    <div class="task"></div>
             </div>
         </div>
+        </div>
 
-        <!--add task form-->
-        
-        <div class="project-form" id="project-form">
-            <div>
-                <form >
-                    <label for="title">Title</label>
-                    <input type="text" id="project-title">
-                    <label for="finish-by">Expected Completion Date?</label>
-                    <input type="text">
-                    <button type="submit">Submit</button>
+        <div class="forms-cover" id="forms-cover">
+            <!--Add project form-->
+            <div class="project-form" id="project-form">
+                <form class="form">
+                    <label>Title</label>
+                    <input type="text" id="project-title" required>
+                    <button class="cancel" id="cancel-project">Cancel</button>
+                    <button type="submit" id="submit-project" class="submit-form">Submit</button>
+                </form>
+            </div>
+            <!--Add Task From-->
+            <div class="task-form" id="task-form">
+                <form class="form">
+                    <label for="task">Task title</label>
+                    <input type="text" id="task-title" required>
+                    <button class="cancel" id="cancel-task">Cancel</button>
+                    <button type="submit" id="submit-task" class="submit-form">Submit</button>
                 </form>
             </div>
         </div>
-        
     </main>
 </body>
 </html>

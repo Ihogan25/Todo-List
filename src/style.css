@@ -73,85 +73,11 @@ h1 {
 
 
 }
-.specificity{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
 
-}
-.specificity div {
-    height: 3rem;
-    width: 75%;
-    border: 1px solid black;
-    border-radius: 5px;
-    background-color: white;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.specificity div:hover {
-    border: 2px solid olivedrab;
-}
-
-
-
-.project-head{
-    margin-bottom: 10px;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    border-bottom: 1px solid black;
-    font-size: 2rem;
-    padding: 10px;
-}
-
-.project-head button {
-    background-color: white;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 1.5rem;
-    border: none;
-}
-
-.project-head button:hover {
-    background-color: olivedrab;
-    color: white;
-}
-
-.projects-list {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    
-}
-
-.project {
-    height: 3rem;
-    width: 75%;
-    border-radius: 5px;
-    border: 1px solid black;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
-    cursor: pointer;
-}
-
-.project:hover {
-    border: 2px solid olivedrab;
-}
 
 .content {
     display: grid;
-    grid-template-rows: 10% 80%;
+    grid-template-rows: 10% 5% 80%;
 }
 
 .title h2 {
@@ -159,49 +85,32 @@ h1 {
     text-align: center;
     border-bottom: 1px solid black;
 }
-.tasks {
+
+.tasks-list {
+    margin-top: 1rem;
+    gap: 1rem;
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    flex-direction: column;
 }
-.task-list {
-    width: 50%;
-    height: 50%;
-    display: flex;
+.add-task {
+    display: block;
+    width: 25%;
+    margin: 0 auto;
+    background-color: white;
+    border: 1px solid olivedrab;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.add-task:hover{
+    background-color: olivedrab;
+    color:white
 }
 
 .task {
-    width: 100%;
-    height: 5rem;
+    width: 50%;
+    margin: 0 auto;
+    height: 2.5rem;
     background-color: olivedrab;
     border-radius: 5px;
 }
-
-.project-form {
-    position:absolute;
-    display: block;
-    height: 100vh;
-    width: 100%;
-    border: 1px solid black;
-    background-color: rgb(199, 199, 199);
-    opacity: .9;
-    
-
-}
-
-.project-form div {
-    opacity: 1;
-    position: relative;
-    background-color: white;
-    height: 10rem;
-    width: 20rem;
-    border-radius: 5px;
-    top: 10rem;
-    left: 62em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-
-
