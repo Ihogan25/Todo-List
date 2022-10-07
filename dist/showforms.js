@@ -7,6 +7,7 @@ const forms = (()=> {
         projectForm: document.getElementById('project-form'),
         projectTitle: document.getElementById('project-title'),
         taskForm: document.getElementById('task-form'),
+        taskTitle: document.getElementById('task-title')
         
     }
 
@@ -22,6 +23,7 @@ const forms = (()=> {
         ev.preventDefault();
         formsData.formsCover.style.display = 'none';
         formsData.taskForm.style.display = 'none'
+        formsData.taskTitle.value = ''
     }
 
     const showProjectForm = (ev) => {
