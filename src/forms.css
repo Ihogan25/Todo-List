@@ -79,7 +79,7 @@
 .specificity div {
     height: 3rem;
     width: 75%;
-    border: 1px solid black;
+    border: 1px solid white;
     border-radius: 5px;
     background-color: white;
     cursor: pointer;
@@ -92,6 +92,8 @@
 .specificity div:hover {
     background-color: olivedrab;
     color: white;
+    border-left: .5rem solid white;
+
 }
 
 
@@ -139,7 +141,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     background-color: white;
     cursor: pointer;
 }
@@ -147,4 +149,18 @@
 .project:hover {
     background-color: olivedrab;
     color: white;
+}
+
+.delete-project-btn {
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: 1px solid olivedrab;
+    background-color: white;
+}
+
+.delete-project-btn:hover {
+    background-color: red;
+
 }

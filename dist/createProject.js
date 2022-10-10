@@ -24,14 +24,20 @@ const createProject = (()=> {
         } 
     }
     const addProject =(ev)=> {
-        ev.preventDefault()
-        const project = new Project(formValues.projTitle.value);
-        projects.push(project);
-        let projCard = document.createElement('div');
-        projCard.textContent = project.title;
-        projCard.classList.add('project');
-        pageData.projectsList.appendChild(projCard);
-        domProjs.push(projCard);
+        ev.preventDefault();
+        if(formValues.projTitle.value != '') {
+            const project = new Project(formValues.projTitle.value);
+            projects.push(project);
+            let projCard = document.createElement('div');
+            projCard.innerHTML = `<p>${project.title}</p> <button class="delete-project-btn" id="del-proj-btn" >X</button>`;
+            projCard.classList.add('project');
+            pageData.projectsList.appendChild(projCard);
+            domProjs.push(projCard);
+        }
+        else {
+            alert('Please give your project a valid title');
+        }
+        
 
     }
 
