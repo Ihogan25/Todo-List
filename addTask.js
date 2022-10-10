@@ -15,7 +15,7 @@ const task = (()=> {
             if(taskData.mainTitle.textContent === projects[i].title) {
                 let taskCard = document.createElement('div');
                 taskCard.classList.add('task');
-                taskCard.textContent = taskData.taskTitle.value;
+                taskCard.innerHTML = `${taskData.taskTitle.value} <button class="del-task-btn">X</button>` ;
                 projects[i].addTask(taskCard)
             }
         }

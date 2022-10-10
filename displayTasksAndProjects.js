@@ -1,5 +1,6 @@
 import projects from "../src/index.js";
 import createProject from '../dist/createProject.js';
+import dltObj from "./deleteFunc.js";
 
 
 const display = (()=> {
@@ -9,13 +10,22 @@ const display = (()=> {
         tasksList: document.getElementById('tasks-list')
     }
 
+    const addIndexies =(ev)=> {
+        ev.preventDefault();
+        for(let i = 0; i < projects.length; i++) {
+            pageData.projectsList.children[i].dataset.index = i;
+            pageData.projectsList.children[i].children[1].dataset.index = i;
+
+        }
+    }
 
     const showProjectContent =(ev)=> {
         ev.preventDefault();
         createProject.domProjs.forEach( projCard => {
             projCard.addEventListener('click', ()=> {
-                pageData.mainTitle.textContent = projCard.textContent;
+                pageData.mainTitle.textContent = projCard.firstChild.textContent;
                 display.showProjTasks();  
+                dltObj.taskObj()
             })
         })
     }
@@ -36,7 +46,8 @@ const display = (()=> {
     return {
         showProjectContent,
         showProjTasks,
-        pageData
+        pageData,
+        addIndexies
     }
 })();   
 
