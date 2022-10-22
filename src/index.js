@@ -2,7 +2,7 @@ import './style.css';
 import './forms.css';
 import forms from '../dist/showforms.js';
 import createProject from '../dist/createProject.js';
-import display from '../dist/displayTasksAndProjects.js';
+import { display } from '../dist/displayTasksAndProjects';
 import task from '../dist/addTask.js';
 import dltObj from '../dist/deleteFunc.js';
 
@@ -33,7 +33,7 @@ const smbtTaskBtn = document.getElementById('submit-task');
 smbtTaskBtn.addEventListener('click', task.addTask);
 smbtTaskBtn.addEventListener('click', forms.rmTaskForm);
 smbtTaskBtn.addEventListener('click', display.showProjTasks);
-smbtTaskBtn.addEventListener('click', dltObj.taskObj)
+smbtTaskBtn.addEventListener('click', dltObj.taskObj);
 //show selected project content 
 smbtProjBtn.addEventListener('click', display.showProjectContent);
 
@@ -42,5 +42,4 @@ smbtProjBtn.addEventListener('click', display.showProjectContent);
 //delete project
 smbtProjBtn.addEventListener('click', dltObj.projObj);
 
-//delete task from selected project
 
