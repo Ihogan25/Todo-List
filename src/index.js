@@ -5,7 +5,7 @@ import createProject from '../dist/createProject.js';
 import { display } from '../dist/displayTasksAndProjects';
 import task from '../dist/addTask.js';
 import dltObj from '../dist/deleteFunc.js';
-
+import sortTasksBy from '../dist/sortFuncs.js';
 const projects = [];
 export default projects;
 
@@ -34,12 +34,14 @@ smbtTaskBtn.addEventListener('click', task.addTask);
 smbtTaskBtn.addEventListener('click', forms.rmTaskForm);
 smbtTaskBtn.addEventListener('click', display.showProjTasks);
 smbtTaskBtn.addEventListener('click', dltObj.taskObj);
-//show selected project content 
-smbtProjBtn.addEventListener('click', display.showProjectContent);
 
-//delete objecttfunc events
 
-//delete project
-smbtProjBtn.addEventListener('click', dltObj.projObj);
+
+const taskImportance = document.getElementById('priority');
+taskImportance.addEventListener('click', sortTasksBy.taskImportance);
+const tasksWeekly = document.getElementById('tasks-weekly');
+tasksWeekly.addEventListener('click', sortTasksBy.week);
+const tasksDaily = document.getElementById('tasks-daily');
+tasksDaily.addEventListener('click', sortTasksBy.today);
 
 

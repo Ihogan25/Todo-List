@@ -1,12 +1,11 @@
 import projects from '../src/index.js';
-import  {selectedProj} from './displayTasksAndProjects.js';
+import dltObj from './deleteFunc.js';
+import  {display, selectedProj} from './displayTasksAndProjects.js';
 import { pageData } from './displayTasksAndProjects.js';
 
 const createProject = (()=> {
+    //array to hold ann project HTML project cards
     const domProjs = [];
-
-
-
     //project class
     class Project {
         constructor(title) {
@@ -38,7 +37,12 @@ const createProject = (()=> {
             pageData.projectsList.appendChild(projCard);
             domProjs.push(projCard);
             selectedProj.chngProj(projects[projects.length - 1]); 
-            pageData.mainTitle.textContent = selectedProj.proj.title
+            pageData.mainTitle.textContent = selectedProj.proj.title;
+            dltObj.projObj();
+            display.showProjectContent();
+            display.showProjTasks();
+            dltObj.taskObj();
+            
         }
         //else if the form project value is empty then alert the user to give the project a valid title
         else {

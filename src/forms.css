@@ -28,11 +28,11 @@
     opacity: 1;
     position: absolute;
     background-color: white;
-    height: 10rem;
+    height: 12rem;
     width: 20rem;
     border-radius: 5px;
     top: 4.5rem;
-    left: 98rem;
+    left: 25rem;
     display: none;
     align-items: center;
     border-top: 1rem solid olivedrab;
@@ -163,4 +163,9 @@
 .delete-project-btn:hover {
     background-color: red;
 
+}
+
+fieldset {
+    display: flex;
+    flex-direction: column;
 }

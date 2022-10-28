@@ -7,8 +7,9 @@ const forms = (()=> {
         projectForm: document.getElementById('project-form'),
         projectTitle: document.getElementById('project-title'),
         taskForm: document.getElementById('task-form'),
-        taskTitle: document.getElementById('task-title')
-        
+        taskTitle: document.getElementById('task-title'),
+        taskDate: document.getElementById('task-date'),
+        taskImportance: document.getElementById('task-importance')
     }
 
 
@@ -17,6 +18,7 @@ const forms = (()=> {
         formsData.formsCover.style.display = 'none';
         formsData.projectForm.style.display = 'none'
         formsData.projectTitle.value = '';
+        
     }
 
     const rmTaskForm = (ev) => {
@@ -24,6 +26,7 @@ const forms = (()=> {
         formsData.formsCover.style.display = 'none';
         formsData.taskForm.style.display = 'none'
         formsData.taskTitle.value = ''
+        formsData.taskDate.value = ''
     }
 
     const showProjectForm = (ev) => {
