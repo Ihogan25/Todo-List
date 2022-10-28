@@ -18,9 +18,9 @@
         <!--Side bar-->
         <div class="side-bar">
             <div class="specificity">
-                <div>Important</div>
-                <div>Today</div>
-                <div>This Week</div>
+                <div id="priority">Important</div>
+                <div id="tasks-daily">Today</div>
+                <div id="tasks-weekly">This Week</div>
             </div>
             <div class="projects">
                 <div class="project-head"><h2>Projects</h2><button id="new-project">+</button></div>
@@ -53,8 +53,18 @@
             <!--Add Task From-->
             <div class="task-form" id="task-form">
                 <form class="form">
-                    <label for="task">Task title</label>
+                    <label for="task">Task title</label>z
                     <input type="text" id="task-title" required>
+                    <fieldset>
+                        <label for="importance">Priority?</label>
+                        <select name="importance" id="task-importance" required>
+                            <option value="Very Important">Very Important</option>
+                            <option value="Important">Important</option>
+                            <option value="Least Important">Least Important</option>
+                          </select>
+                    </fieldset>
+                    <label for="date">Due date:</label>
+                    <input type="date" name="date" id="task-date" required>
                     <button class="cancel" id="cancel-task">Cancel</button>
                     <button type="submit" id="submit-task" class="submit-form">Submit</button>
                 </form>
