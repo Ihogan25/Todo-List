@@ -6,9 +6,7 @@ import { display } from '../dist/displayTasksAndProjects';
 import task from '../dist/addTask.js';
 import dltObj from '../dist/deleteFunc.js';
 import sortTasksBy from '../dist/sortFuncs.js';
-const projects = [];
-export default projects;
-
+import storage from '../dist/storage';
 
 
 
