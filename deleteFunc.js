@@ -1,10 +1,8 @@
-import projects from "../src/index.js";
-import createProject from "./createProject.js";
+
 import {display} from "./displayTasksAndProjects.js";
-import  {selectedProj} from './displayTasksAndProjects.js';
 import { pageData } from "./displayTasksAndProjects.js";
-import task from "./addTask.js";
 import _ from "lodash";
+import storage from "./storage.js";
 
 
 const dltObj = (()=> {
@@ -17,31 +15,27 @@ const dltObj = (()=> {
         projDltBtns.forEach(btn => {
             btn.addEventListener('click', (ev)=> {
                     ev.preventDefault()
-                    let indx = createProject.domProjs.indexOf(btn.parentElement);
-                    if(createProject.domProjs.includes(btn.parentElement)) {
-                        for(let i = 0; i < task.allTasks.length; i++) {
-                            if(_.isEqual(task.allTasks[i],projects[indx].tasks[i]) ) {
-                                task.allTasks.splice(i,1);
-                            }
-                            else {
-                                console.log(task.allTasks[i], projects[indx].tasks[i]);
+                    let indx = storage.globalItems.domProjs.indexOf(btn.parentElement);
+                    if(storage.globalItems.domProjs.includes(btn.parentElement)) {
+                        for(let i = 0; i < storage.globalItems.allTasks.length; i++) {
+                            if(_.isEqual(storage.globalItems.allTasks[i],storage.globalItems.projects[indx].tasks[i]) ) {
+                                storage.globalItems.allTasks.splice(i,1);
                             }
                         }
                         pageData.projectsList.removeChild(pageData.projectsList.children[indx]);
-                        createProject.domProjs.splice(indx,1);
-                        projects.splice(indx,1);
-                        if(projects.length > 0 && selectedProj.proj !== projects[indx]) {
-                           selectedProj.chngProj(projects[0]);
+                        storage.rmProjFromStorg(indx);
+                        if(storage.globalItems.projects.length > 0 && storage.globalItems.selectedProj.proj !== storage.globalItems.projects[indx]) {
+                           storage.globalItems.selectedProj.chngProj(storage.globalItems.projects[0]);
                            pageData.mainTitle.textContent = selectedProj.proj.title;
                            display.showProjTasks();
                         }
-                        else if(projects.length > 0 && selectedProj.proj === projects[indx]){
-                            selectedProj.chngProj(projects[0]);
+                        else if(storage.globalItems.projects.length > 0 && storage.globalItems.selectedProj.proj === storage.globalItems.projects[indx]){
+                            storage.globalItems.selectedProj.chngProj(projects[0]);
                             pageData.mainTitle.textContent = selectedProj.proj.title;
                             display.showProjTasks();
                         }
                         else{
-                            selectedProj.chngProj({});
+                            storage.globalItems.selectedProj.chngProj({});
 
                             pageData.mainTitle.textContent = 'Create a Project!';
                             while (pageData.tasksList.hasChildNodes()) {
@@ -60,14 +54,14 @@ const dltObj = (()=> {
         dtlTskBtns.forEach(btn => {
             btn.addEventListener('click', ()=> {
                 //looping through each project to find the project in which the task belongs to
-                for(let i = 0; i < selectedProj.proj.tasks.length; i++) {
-                    if(selectedProj.proj.tasks[i].taskCard === btn.parentElement) {
-                        let taskIndx = selectedProj.proj.tasks.indexOf(selectedProj.proj.tasks[i])
-                        selectedProj.proj.rmTask(taskIndx);
+                for(let i = 0; i < storage.globalItems.selectedProj.proj.tasks.length; i++) {
+                    if(storage.globalItems.selectedProj.proj.tasks[i].taskCard === btn.parentElement) {
+                        let taskIndx = storage.globalItems.domProjsselectedProj.proj.tasks.indexOf(storage.globalItems.selectedProj.proj.tasks[i])
+                        storage.globalItems.selectedProj.proj.rmTask(taskIndx);
                         pageData.tasksList.removeChild(pageData.tasksList.children[taskIndx]);
-                        for(let i = 0; i < task.allTasks.length; i++) {
-                            if(task.allTasks[i].taskCard === btn.parentElement) {
-                                task.allTasks.splice(i, 1);
+                        for(let i = 0; i < storage.globalItems.allTasks.length; i++) {
+                            if(storage.globalItems.allTasks[i].taskCard === btn.parentElement) {
+                                storage.globalItems.allTasks.splice(i, 1);
                             }
                     }
                 }
