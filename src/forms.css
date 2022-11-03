@@ -151,7 +151,7 @@
     color: white;
 }
 
-.delete-project-btn {
+.dlt-proj-btn {
     border: none;
     border-radius: 10px;
     font-size: 1rem;
@@ -160,7 +160,7 @@
     background-color: white;
 }
 
-.delete-project-btn:hover {
+.dlt-proj-btn:hover {
     background-color: red;
 
 }

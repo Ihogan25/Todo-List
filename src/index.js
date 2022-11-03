@@ -1,45 +1,31 @@
 import './style.css';
 import './forms.css';
-import forms from '../dist/showforms.js';
-import createProject from '../dist/createProject.js';
-import { display } from '../dist/displayTasksAndProjects';
-import task from '../dist/addTask.js';
-import dltObj from '../dist/deleteFunc.js';
-import sortTasksBy from '../dist/sortFuncs.js';
-import storage from '../dist/storage';
+import { create } from '../dist/create.js'
+import { display } from '../dist/display.js';
+import  {storage, items} from '../dist/storage.js'
 
-
-
+//on page open load items in local storage
+storage.loadStoredItems()
 //display forms and remove forms
-const newProjectBtn = document.getElementById('new-project');
+const newProjectBtn = document.getElementById('new-project-btn');
+newProjectBtn.addEventListener('click', display.projectForm)
+
 const cancelProjectBtn = document.getElementById('cancel-project');
-newProjectBtn.addEventListener('click', forms.showProjectForm);
-cancelProjectBtn.addEventListener('click', forms.rmProjForm);
-const cancelTaskBtn = document.getElementById('cancel-task');
-cancelTaskBtn.addEventListener('click', forms.rmTaskForm);
+cancelProjectBtn.addEventListener('click', display.rmProjFormEv);
+
+
 const addTaskBtn = document.getElementById('add-task-btn');
-addTaskBtn.addEventListener('click', forms.showTaskForm);
+addTaskBtn.addEventListener('click', display.taskForm)
 
-//addprojects
-const smbtProjBtn = document.getElementById('submit-project');
-smbtProjBtn.addEventListener('click', createProject.addProject);
-smbtProjBtn.addEventListener('click', forms.rmProjForm);
+const cancelTaskBtn = document.getElementById('cancel-task');
+cancelTaskBtn.addEventListener('click', display.rmTaskFormEv)
 
 
-//submit task
-const smbtTaskBtn = document.getElementById('submit-task');
-smbtTaskBtn.addEventListener('click', task.addTask);
-smbtTaskBtn.addEventListener('click', forms.rmTaskForm);
-smbtTaskBtn.addEventListener('click', display.showProjTasks);
-smbtTaskBtn.addEventListener('click', dltObj.taskObj);
+const smbtTaskBtn = document.getElementById('smbt-task-btn')
+smbtTaskBtn.addEventListener('click', create.task);
 
+const smbtProjBtn = document.getElementById('smbt-proj-btn');
+smbtProjBtn.addEventListener('click', create.project)
 
-
-const taskImportance = document.getElementById('priority');
-taskImportance.addEventListener('click', sortTasksBy.taskImportance);
-const tasksWeekly = document.getElementById('tasks-weekly');
-tasksWeekly.addEventListener('click', sortTasksBy.week);
-const tasksDaily = document.getElementById('tasks-daily');
-tasksDaily.addEventListener('click', sortTasksBy.today);
 
 

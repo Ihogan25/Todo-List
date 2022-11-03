@@ -23,7 +23,7 @@
                 <div id="tasks-weekly">This Week</div>
             </div>
             <div class="projects">
-                <div class="project-head"><h2>Projects</h2><button id="new-project">+</button></div>
+                <div class="project-head"><h2>Projects</h2><button id="new-project-btn">+</button></div>
                 <div class="projects-list" id="projects-list">
                 </div>
             </div>
@@ -45,28 +45,28 @@
             <div class="project-form" id="project-form">
                 <form class="form">
                     <label>Title</label>
-                    <input type="text" id="project-title" required>
+                    <input type="text" id="project-title" >
                     <button class="cancel" id="cancel-project">Cancel</button>
-                    <button type="submit" id="submit-project" class="submit-form">Submit</button>
+                    <button type="submit" id="smbt-proj-btn" class="submit-form">Submit</button>
                 </form>
             </div>
             <!--Add Task From-->
             <div class="task-form" id="task-form">
                 <form class="form">
-                    <label for="task">Task title</label>z
-                    <input type="text" id="task-title" required>
+                    <label for="task">Task title</label>
+                    <input type="text" id="task-title" >
                     <fieldset>
                         <label for="importance">Priority?</label>
-                        <select name="importance" id="task-importance" required>
-                            <option value="Very Important">Very Important</option>
-                            <option value="Important">Important</option>
-                            <option value="Least Important">Least Important</option>
+                        <select name="importance" id="task-priority" >
+                            <option value="high">High</option>
+                            <option value="mid">Mid</option>
+                            <option value="low">Low</option>
                           </select>
                     </fieldset>
                     <label for="date">Due date:</label>
-                    <input type="date" name="date" id="task-date" required>
+                    <input type="date" name="date" id="task-date" >
                     <button class="cancel" id="cancel-task">Cancel</button>
-                    <button type="submit" id="submit-task" class="submit-form">Submit</button>
+                    <button type="submit" id="smbt-task-btn" class="submit-form">Submit</button>
                 </form>
             </div>
         </div>
