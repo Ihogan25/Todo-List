@@ -1,45 +1,38 @@
-
-
-
-
+import { display, dom } from "./display";
+import { storage, projects, allTasks, selectedProj } from "./storage";
+import dlt from "./delete";
 
 const create =(()=> {
 
     //create elements
-    const elements = () => {
-        const task = document.createElement('div');
-        const heading = document.createElement('h2');
-        const details = document.createElement('p');
-        const due = document.createElement('p');
-        const priority = document.createElement('p');
-        const button = document.createElement('button');
-      
-        return {
-          tasks,
-          task,
-          heading,
-          details,
-          due,
-          priority,
-          button,
-        };
-      };
+    const domProjCard = (title)=> {
+        let card = document.createElement('div');
+        card.classList = 'project'
+        card.innerHTML = 
+                        `<p>${title}</p>
+                        <button class="dlt-proj-btn">X</button>`;
+        return card;
+        
+    }
+
+    const domTaskCard =(title, priority, date)=> {
+        let card = document.createElement('div');
+        card.classList = `task ${priority}`;
+        card.innerHTML = 
+                        `<p>${title}</p>
+                        <p>${date}</p>
+                        <button class="del-task-btn">X</button>`;
+        return card;
+    }
+
       
     //task Class
     class Task {
-        constructor(title, importance, date, taskCard) {
+        constructor(title, priority, date) {
             this.title = title;
-            this.importance = importance;
+            this.priority = priority;
             this.date = date;
-            this.taskCard = taskCard;
         }
-        chngDate(newDate) {
-            this.date = newDate;
-        }
-        get task() {
-            return Task;
-        }
-
     }
     //Project class
     class Project {
@@ -54,64 +47,67 @@ const create =(()=> {
         rmTask(task) {
             this.tasks.splice(task,1);
         }
-        project() {
-            return this;
-        }
     }
 
 
     //create task function
     const task = (ev) => {
         ev.preventDefault();
-        if(storage.globalItems.projects.length > 0) {
-                if(pageData.mainTitle.innerHTML === storage.globalItems.selectedProj.proj.title) {
-                    let taskCard = document.createElement('div');
-                    taskCard.classList.add('task');
-                    taskCard.innerHTML = `<p>${pageData.taskTitle.value}</p> 
-                    <p>${pageData.taskImportance.value}</p>
-                    <p>${pageData.taskDate.value}</p>
-                    <button class="del-task-btn">X</button>`;
-                    let task = new Task(pageData.taskTitle.value, pageData.taskImportance.value, pageData.taskDate.value, taskCard);
-                    storage.globalItems.selectedProj.proj.addTask(task); 
-                    storage.globalItems.allTasks.push(task);
+        const projArr = JSON.parse(localStorage.getItem('projects'))
+        const slctdProj = JSON.parse(localStorage.getItem('selectedProj'))
+        if(projArr.length > 0) {
+            for(let i = 0; i < projArr.length; i++) {
+                if(projArr[i].title === slctdProj.proj.title) {
+                    const task = new Task(dom.taskData.taskTitle.value.trim(),dom.taskData.taskPriority.value.trim(), dom.taskData.taskDate.value);
+                    projArr[i].tasks.push(task);
+                    slctdProj.proj = projArr[i];
+                    let card = domTaskCard(task.title, task.priority, task.date)
+                    dom.taskData.tasksList.appendChild(card)
+                    localStorage.setItem('selectedProj', JSON.stringify(slctdProj))
+                    localStorage.setItem('projects', JSON.stringify(projArr))
+                    dlt.task();
                 }
-
+            }
         }
-        //else alert thr used to create a rproject in order for them to add a task
         else {
-            window.alert('Please create a project to add a task to.')
+            window.alert('Create a project to add a task to!');
         }
+        display.rmTaskForm();
+        
+     
     }
 
     //create project function
-    const addProject =(ev)=> {
+    const project =(ev)=> {
         ev.preventDefault();
-        if(pageData.projTitle.value != '') {
-            
-            const project = new Project(pageData.projTitle.value);
-            items.projects.push(project);
-            let projCard = document.createElement('div');
-            projCard.innerHTML = `<p>${project.title}</p> <button class="delete-project-btn" id="del-proj-btn" >X</button>`;
-            projCard.classList.add('project');
-            pageData.projectsList.appendChild(projCard);
-            console.log(items.domProjs.push(JSON.stringify(projCard)))
-            items.selectedProj = items.projects[items.projects.length - 1]; 
-            console.log(items.selectedProj.title)
-            pageData.mainTitle.textContent = items.selectedProj.title;
-            localStorage.setItem('items', JSON.stringify(items));
-            console.log(JSON.parse(localStorage.getItem('items')))
-            
-            //dltObj.projObj();
-            // display.showProjectContent();
-            // display.showProjTasks();
-            // dltObj.taskObj();
-            
+        if(dom.projData.projTitle.value !== '') {
+            const project = new Project(dom.projData.projTitle.value.trim());
+            const projArr = JSON.parse(localStorage.getItem('projects'))
+            projArr.push(project);
+            localStorage.setItem('projects', JSON.stringify(projArr))
+            const slctdProj = JSON.parse(localStorage.getItem('selectedProj'))
+            slctdProj.proj = project
+            localStorage.setItem('selectedProj', JSON.stringify(slctdProj))
+            let projCard = domProjCard(project.title);
+            dom.projData.projsList.appendChild(projCard);
+            dom.mainTitle.textContent = project.title
+            display.rmProjForm();   
+            dlt.project()
+            display.showProjectContent();
         }
-        //else if the form project value is empty then alert the user to give the project a valid title
         else {
-            alert('Please give your project a valid title');
+            window.alert('Please give your project a valid title');
         }
     }
 
 
-})()
+    return {
+        task,
+        project,
+        domProjCard,
+        domTaskCard
+    }
+
+})();
+
+export {create};

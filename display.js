@@ -1,88 +1,114 @@
+import sl from 'date-fns/esm/locale/sl/index.js';
 import _ from 'lodash';
+import { create } from '../dist/create.js';
 
 
 
-let pageData = {
+
+let dom = {
     mainTitle: document.getElementById('main-title'),
-    projectsList: document.getElementById('projects-list'),
-    tasksList: document.getElementById('tasks-list'),
-    projTitle: document.getElementById('project-title'),
-    taskTitle: document.getElementById('task-title'),
-    taskDate: document.getElementById('task-date'),
-    taskImportance: document.getElementById('task-importance')
+    formsCover: document.getElementById('forms-cover'),
+    projData: {
+        projsList: document.getElementById('projects-list'),
+        projTitle: document.getElementById('project-title'),
+        projForm: document.getElementById('project-form')
+    },
+    taskData: {
+        tasksList: document.getElementById('tasks-list'),
+        taskTitle: document.getElementById('task-title'),
+        taskDate: document.getElementById('task-date'),
+        taskPriority: document.getElementById('task-priority'),
+        taskForm: document.getElementById('task-form')
+    }
+    
 }
+
 
 const display = (()=> {
 
-    const formsData = {
-        formsCover: document.getElementById('forms-cover'),
-        projectForm: document.getElementById('project-form'),
-        projectTitle: document.getElementById('project-title'),
-        taskForm: document.getElementById('task-form'),
-        taskTitle: document.getElementById('task-title'),
-        taskDate: document.getElementById('task-date'),
-        taskImportance: document.getElementById('task-importance')
-    }
+    
 
-
-    const rmProjForm = (ev) => {
-        ev.preventDefault();
-        formsData.formsCover.style.display = 'none';
-        formsData.projectForm.style.display = 'none'
-        formsData.projectTitle.value = '';
+    const rmProjForm = () => {
+        dom.formsCover.style.display = 'none';
+        dom.projData.projForm.style.display = 'none'
+        dom.projData.projTitle.value = '';
         
     }
 
-    const rmTaskForm = (ev) => {
-        ev.preventDefault();
-        formsData.formsCover.style.display = 'none';
-        formsData.taskForm.style.display = 'none'
-        formsData.taskTitle.value = ''
-        formsData.taskDate.value = ''
+    const rmTaskForm = () => {
+        dom.formsCover.style.display = 'none';
+        dom.taskData.taskForm.style.display = 'none'
+        dom.taskData.taskTitle.value = '';
+        dom.taskData.taskDate.value = '';
     }
 
-    const projectForm = (ev) => {
-        ev.preventDefault();
-        formsData.formsCover.style.display = 'block';
-        formsData.projectForm.style.display = 'flex';
+
+    const rmProjFormEv = (ev) => {
+        ev.preventDefault()
+        dom.formsCover.style.display = 'none';
+        dom.projData.projForm.style.display = 'none';
+        dom.projData.projTitle.value = '';
+        
     }
 
-    const taskForm = (ev)=> {
-        ev.preventDefault();
-        formsData.formsCover.style.display = 'block';
-        formsData.taskForm.style.display = 'flex';
+    const rmTaskFormEv = (ev) => {
+        ev.preventDefault()
+        dom.formsCover.style.display = 'none';
+        dom.taskData.taskForm.style.display = 'none';
+        dom.taskData.taskTitle.value = '';
+        dom.taskData.taskDate.value = '';
+    }
+
+    const projectForm = () => {
+        dom.formsCover.style.display = 'block';
+        dom.projData.projForm.style.display = 'flex';
+    }
+
+    const taskForm = ()=> {
+        dom.formsCover.style.display = 'block';
+        dom.taskData.taskForm.style.display = 'flex';
     }
 
 
     const showProjectContent =()=> {
-        items.domProjs.forEach( projCard => {
-            projCard.addEventListener('click', (ev)=> {
-                ev.preventDefault()
-                let projIndx = items.domProjs.indexOf(projCard);
-                
-                if(_.isEqual(items.selectedProj.proj, items.projects[projIndx]) === false) {
-                    items.selectedProj.chngProj(items.projects[projIndx]);
-                    pageData.mainTitle.textContent = items.selectedProj.proj.title;
-                    showProjTasks();
-                }
-                else if(_.isEqual(items.selectedProj.proj, items.projects[projIndx])=== true) {
-                    items.selectedProj.chngProj(items.projects[projIndx]);
-                    pageData.mainTitle.textContent = items.selectedProj.proj.title;
-                    showProjTasks();
-                }
+        let projCards = document.querySelectorAll('.project') 
+        projCards.forEach( card => {
+            card.addEventListener('click', ev => {
+                ev.preventDefault();
+                let projDomArr = Array.from(projCards)
+                let index = projDomArr.indexOf(card)
+                let projs = JSON.parse(localStorage.getItem('projects'));
+                let slctdProj = JSON.parse(localStorage.getItem('selectedProj'));
+                slctdProj.proj = projs[index]
+                dom.mainTitle.textContent = slctdProj.proj.title;
+                localStorage.setItem('selectedProj', JSON.stringify(slctdProj))
+                clearTasksList();
+                showProjTasks()
             })
         })
     }
 
 
-    //this function is a child function to the showProject content, this shows the slected projects tasks
-    const showProjTasks =()=> {
-            while (pageData.tasksList.hasChildNodes()) {
-                pageData.tasksList.removeChild(pageData.tasksList.firstChild)
-                }
-            for(let i = 0; i < items.selectedProj.proj.tasks.length; i++) {
-                pageData.tasksList.appendChild(items.selectedProj.proj.tasks[i].taskCard)
+    const clearTasksList =()=> {
+        if(dom.taskData.tasksList.hasChildNodes()) {
+            while(dom.taskData.tasksList.hasChildNodes()) {
+                dom.taskData.tasksList.removeChild(dom.taskData.tasksList.firstChild)
+                console.log('clear')
             }
+        }
+    }
+
+    const showProjTasks =()=> {
+        let projs = JSON.parse(localStorage.getItem('projects'));
+        let slctdProj = JSON.parse(localStorage.getItem('selectedProj'));
+        for(let i = 0; i < slctdProj.proj.tasks.length; i++) {
+            let task = slctdProj.proj.tasks[i]
+            let card = create.domTaskCard(task.title, task.priority, task.date);
+            dom.taskData.taskTitle.appendChild(card);
+            console.log(card);
+
+        }
+        console.log('show tasks')
     }
 
 
@@ -94,7 +120,12 @@ const display = (()=> {
         projectForm,
         taskForm,
         showProjTasks,
-        showProjectContent
+        showProjectContent,
+        rmProjFormEv,
+        rmTaskFormEv
     }
 
 })();
+
+
+export { display , dom}
