@@ -1,6 +1,6 @@
-import sl from 'date-fns/esm/locale/sl/index.js';
-import _ from 'lodash';
 import { create } from '../dist/create.js';
+import dlt from './delete.js';
+import { selectedProj } from "./storage";
 
 
 
@@ -71,44 +71,46 @@ const display = (()=> {
 
 
     const showProjectContent =()=> {
-        let projCards = document.querySelectorAll('.project') 
+        let projCards = document.querySelectorAll('.project');
         projCards.forEach( card => {
-            card.addEventListener('click', ev => {
-                ev.preventDefault();
-                let projDomArr = Array.from(projCards)
-                let index = projDomArr.indexOf(card)
-                let projs = JSON.parse(localStorage.getItem('projects'));
-                let slctdProj = JSON.parse(localStorage.getItem('selectedProj'));
-                slctdProj.proj = projs[index]
-                dom.mainTitle.textContent = slctdProj.proj.title;
-                localStorage.setItem('selectedProj', JSON.stringify(slctdProj))
-                clearTasksList();
-                showProjTasks()
-            })
+            if(card.value !== true) {
+                card.value = true;
+                card.addEventListener('click', ev => {
+                    if (ev.currentTarget !== ev.target && ev.currentTarget === card.children[1]) {
+                        console.log('did not run')  
+                        return;
+                    }
+                    ev.preventDefault()
+                    let projDomArr = Array.from(projCards);
+                    let index = projDomArr.indexOf(card);
+                    let project = JSON.parse(localStorage.getItem(localStorage.key(index)));
+                    selectedProj.chngProj(project); 
+                    dom.mainTitle.textContent = selectedProj.proj.title;
+                    clearTasksList()
+                    showProjTasks();
+                    dlt.task()
+                    console.log(selectedProj.proj)
+                        
+                })
+            }
         })
+        
     }
 
 
     const clearTasksList =()=> {
-        if(dom.taskData.tasksList.hasChildNodes()) {
-            while(dom.taskData.tasksList.hasChildNodes()) {
-                dom.taskData.tasksList.removeChild(dom.taskData.tasksList.firstChild)
-                console.log('clear')
+           while (dom.taskData.tasksList.firstChild) {
+                dom.taskData.tasksList.removeChild(dom.taskData.tasksList.firstChild);
             }
-        }
+        
     }
 
     const showProjTasks =()=> {
-        let projs = JSON.parse(localStorage.getItem('projects'));
-        let slctdProj = JSON.parse(localStorage.getItem('selectedProj'));
-        for(let i = 0; i < slctdProj.proj.tasks.length; i++) {
-            let task = slctdProj.proj.tasks[i]
+        for(let i = 0; i < selectedProj.proj.tasks.length; i++) {
+            let task = selectedProj.proj.tasks[i]
             let card = create.domTaskCard(task.title, task.priority, task.date);
-            dom.taskData.taskTitle.appendChild(card);
-            console.log(card);
-
+            dom.taskData.tasksList.innerHTML += card;
         }
-        console.log('show tasks')
     }
 
 
@@ -122,10 +124,13 @@ const display = (()=> {
         showProjTasks,
         showProjectContent,
         rmProjFormEv,
-        rmTaskFormEv
+        rmTaskFormEv,
+        clearTasksList
     }
 
 })();
 
 
 export { display , dom}
+
+

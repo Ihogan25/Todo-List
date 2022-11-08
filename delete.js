@@ -1,38 +1,25 @@
-
-import _ from "lodash";
-import { dom } from "./display";
-
+import { dom , display} from "./display";
+import { selectedProj, storage } from "./storage";
 
 const dlt = (()=> {
     
     //delete project func
     const project =()=> {
-        //queries for all project buttons on the page
         let projDltBtns = document.querySelectorAll('.dlt-proj-btn');
-        //for each delete project button add an event listener of click
         projDltBtns.forEach(btn => {
             btn.addEventListener('click', ev=> {
-                    ev.preventDefault()
-                    let projs = JSON.parse(localStorage.getItem('projects'));
-                    let slctdProj = JSON.parse(localStorage.getItem('selectedProj'))
-                    for(let i = 0; i < projs.length; i++) {
-                        if(projs[i].title === btn.parentElement.firstChild.textContent) {
-                            projs.splice(i,1);
-                            dom.projData.projsList.removeChild(dom.projData.projsList.children[i]);
-                            if(projs.length  === 0) {
-                                slctdProj.proj = {};
-                                dom.mainTitle.textContent = 'Create a Project!';
-                            }
-                            else if(projs.length > 0) {
-                                slctdProj.proj = projs[0] || projs[1];
-                                dom.mainTitle.textContent = slctdProj.proj.title;
-                            }
-                        }
-                    }
-                    localStorage.setItem('projects', JSON.stringify(projs))
-                    localStorage.setItem('selectedProj', JSON.stringify(slctdProj))
+                    ev.preventDefault();
+                    let btnsArr = Array.from(dom.projData.projsList.children);
+                    let index = btnsArr.indexOf(btn.parentNode)
+                    let key = JSON.parse(localStorage.getItem(localStorage.key(index)))
+                    localStorage.removeItem(key.title);   
+                    dom.projData.projsList.removeChild(dom.projData.projsList.children[index]);
+                    storage.newSelectedProject();
+                    display.clearTasksList();
+                    display.showProjTasks();
+                    dlt.task()
+                    console.log(selectedProj.proj);
             })
-        
         })
     }
     //delete tasks func
@@ -40,22 +27,13 @@ const dlt = (()=> {
         let taskDltBtns = document.querySelectorAll('.del-task-btn');
         taskDltBtns.forEach( btn => {
             btn.addEventListener('click', ()=> {
-                let projs = JSON.parse(localStorage.getItem('projects'));
-                let slctdProj = JSON.parse(localStorage.getItem('selectedProj'))
-                let domTaskArr = Array.from(dom.taskData.tasksList.children);
-                let index = domTaskArr.indexOf(btn.parentElement);
-                console.log(index)
-                if(btn.parentElement.firstChild.textContent === slctdProj.proj.tasks[index].title) {
-                    slctdProj.proj.tasks.splice(index,1);
-                    dom.taskData.tasksList.removeChild(dom.taskData.tasksList.children[index])
-                }
-                for(let i = 0; i < projs.length; i++) {
-                    if(projs[i].title === slctdProj.proj.title) {
-                        projs[i] = slctdProj.proj;
-                    }
-                }
-                localStorage.setItem('projects', JSON.stringify(projs))
-                localStorage.setItem('selectedProj', JSON.stringify(slctdProj))
+                let curntTasks = document.querySelectorAll('.task');
+                const project = JSON.parse(localStorage.getItem(selectedProj.proj.title));
+                const taskArr = Array.from(curntTasks)
+                const index = taskArr.indexOf(btn.parentElement)
+                project.tasks.splice(index,1);  
+                dom.taskData.tasksList.removeChild(dom.taskData.tasksList.children[index]);                
+                localStorage.setItem(project.title, JSON.stringify(project));
             })
         })
         
