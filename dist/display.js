@@ -1,3 +1,4 @@
+import da from 'date-fns/locale/da/index';
 import { create } from '../dist/create.js';
 import dlt from './delete.js';
 import { selectedProj } from "./storage";
@@ -114,7 +115,111 @@ const display = (()=> {
     }
 
 
+    const tasksByPriority =(ev)=> {
+        ev.preventDefault()
+        dom.mainTitle.textContent = 'Priority';
+        if(localStorage.length > 0) {
+            const high = [];
+            const mid = [];
+            const low = [];
+            for(let i = 0; i < localStorage.length; i++) {
+                const project = JSON.parse(localStorage.getItem(localStorage.key(i)));
+                for(let j = 0; j < project.tasks.length; j++) {
+                    const task = project.tasks[j]
+                     switch(task.priority) {
+                        case 'high':
+                            high.push(task)
+                            break;
+                        case 'mid':
+                            mid.push(task);
+                            break;
+                        case 'low':
+                            low.push(task);
+                            break
+                    }
+                }
+            }
+            display.clearTasksList()
+            const sortedTasks =  high.concat(mid,low);
+            for(let i = 0; i < sortedTasks.length; i++) {
+                const task = sortedTasks[i];
+                const taskCard = create.domTaskCard(task.title, task.priority, task.date);
+                dom.taskData.tasksList.innerHTML += taskCard;
+            }
+           
+        }
+    }
 
+    const tasksByDate =(ev)=> {
+        ev.preventDefault();
+        dom.mainTitle.textContent = 'Tasks By Weekly'
+        const createWeekCard =(weekNum)=> {
+            const week = document.createElement('div');
+            week.classList.add('week');
+            week.innerHTML = `<h3>Week ${weekNum}</h3>`
+            return week
+        };
+
+        const week1  = createWeekCard(1);
+        const week2 = createWeekCard(2);
+        const week3 = createWeekCard(3);
+        const week4 = createWeekCard(4);
+        if(localStorage.length > 0) {
+        for(let i = 0; i < localStorage.length; i++) {
+            const project = JSON.parse(localStorage.getItem(localStorage.key(i)));
+            for(let j = 0; j < project.tasks.length; j++) {
+                const task = project.tasks[j]
+                const day = parseInt(task.date.slice(8,10))
+                const month = 11;
+                const taskMonth = parseInt(task.date.slice(5,7))
+                const taskCard = create.domTaskCard(task.title, task.priority, task.date);
+                if(day > 0 && day < 8 && taskMonth === month) {
+                    week1.innerHTML += taskCard
+                }
+                else if(day > 7 && day < 15 && taskMonth === month) {
+                    week2.innerHTML += taskCard;
+                }   
+                else if(day > 14 && day < 22 && taskMonth === month) {
+                    week3.innerHTML += taskCard
+                } else if( day > 21 && day < 32 && taskMonth === month) {
+                    week4.innerHTML+= taskCard
+                }
+            }
+        }
+        display.clearTasksList()
+        dom.taskData.tasksList.appendChild(week1);
+        dom.taskData.tasksList.appendChild(week2);
+        dom.taskData.tasksList.appendChild(week3);
+        dom.taskData.tasksList.appendChild(week4);
+        }
+
+    } 
+
+    const tasksByToday =(ev)=> {
+        ev.preventDefault();
+        dom.mainTitle.textContent = 'Todays Tasks';
+        const todaysDate = ()=> {
+            const todaysDate = new Date()
+            const secndDate = todaysDate.toDateString();
+            const cmprDate = `2022-11-${secndDate.slice(8,10)}`
+            return cmprDate;
+
+        };
+        if(localStorage.length > 0) {
+        display.clearTasksList()
+        for(let i = 0; i < localStorage.length; i++) {
+            const project = JSON.parse(localStorage.getItem(localStorage.key(i)));
+            for(let j = 0; j < project.tasks.length; j++) {
+                const task = project.tasks[j]
+                if(task.date === todaysDate()) {
+                    const taskCard = create.domTaskCard(task.title, task.priority, task.date);
+                    dom.taskData.tasksList.innerHTML += taskCard;
+                }
+            }
+        }
+    }
+
+    }
 
     return {
         rmProjForm,
@@ -125,7 +230,10 @@ const display = (()=> {
         showProjectContent,
         rmProjFormEv,
         rmTaskFormEv,
-        clearTasksList
+        clearTasksList,
+        tasksByDate,
+        tasksByPriority,
+        tasksByToday
     }
 
 })();

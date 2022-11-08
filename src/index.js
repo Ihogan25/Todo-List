@@ -28,4 +28,11 @@ const smbtProjBtn = document.getElementById('smbt-proj-btn');
 smbtProjBtn.addEventListener('click', create.project)
 
 
+const priorityBtn = document.getElementById('priority');
+priorityBtn.addEventListener('click', display.tasksByPriority);
 
+const todayBtn = document.getElementById('tasks-daily');
+todayBtn.addEventListener('click', display.tasksByToday);
+
+const weeklyBtn = document.getElementById('tasks-weekly');
+weeklyBtn.addEventListener('click', display.tasksByDate)

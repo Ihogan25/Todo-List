@@ -16,11 +16,12 @@
     width: 20rem;
     border-radius: 5px;
     top: 4.5rem;
-    left: 25rem;
+    left: 40rem;
     display: none;
     align-items: center;
-    border-top: 1rem solid olivedrab;
+    border-top: 1rem solid black;
     justify-content: center;
+    font-size: 2rem;
 }
 
 
@@ -28,17 +29,19 @@
     opacity: 1;
     position: absolute;
     background-color: white;
-    height: 12rem;
+    height: 15rem;
     width: 20rem;
     border-radius: 5px;
     top: 4.5rem;
-    left: 25rem;
+    left: 40rem;
     display: none;
     align-items: center;
-    border-top: 1rem solid olivedrab;
+    border-top: 1rem solid black;
     justify-content: center;
+    font-size: 1.5rem;
 
 }
+
 .form {
     display: flex;
     flex-direction: column;
@@ -52,9 +55,14 @@
 .form button {
     background-color: white;
     border-radius: 5px;
-    border: 1px solid olivedrab;
+    border: 1px solid black;
     margin-bottom: .5rem;
     cursor: pointer;
+    font-size: 1.5rem;
+}
+
+.form input {
+    font-size: 1rem ;
 }
 
 
@@ -64,7 +72,7 @@
 }
 
 .submit-form:hover {
-    background-color: olivedrab;
+    background-color: green;
     color: white;
 }
 
@@ -86,11 +94,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-left: .5rem solid olivedrab;
+    border-left: .5rem solid black;
+    font-size: 2rem;
+    
 }
 
 .specificity div:hover {
-    background-color: olivedrab;
+    background-color: black;
     color: white;
     border-left: .5rem solid white;
 
@@ -105,8 +115,7 @@
     align-items: center;
     justify-content: center;
     gap: 5px;
-    border-bottom: 1px solid black;
-    font-size: 2rem;
+    font-size: 2.5rem;
     padding: 10px;
 }
 
@@ -119,7 +128,7 @@
 }
 
 .project-head button:hover {
-    background-color: olivedrab;
+    background-color: green;
     color: white;
 }
 
@@ -137,31 +146,31 @@
     width: 75%;
     border-radius: 5px;
     border: 1px solid black;
-    border-top: 10px solid olivedrab;
+    border-top: 10px solid black;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
     background-color: white;
     cursor: pointer;
+    font-size: 2rem;
 }
 
 .project:hover {
-    background-color: olivedrab;
+    background-color: black;
     color: white;
 }
 
 .dlt-proj-btn {
+    background-color: inherit;
     border: none;
-    border-radius: 10px;
-    font-size: 1rem;
+    font-size: 1.5rem;
     cursor: pointer;
-    border: 1px solid olivedrab;
-    background-color: white;
+    color: inherit;
 }
 
 .dlt-proj-btn:hover {
-    background-color: red;
+    color: red;
 
 }
 
