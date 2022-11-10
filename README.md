@@ -5,3 +5,4 @@ You can create projects and add to-do to them.
 You can delete projects and Todos
 And all data is stored is LocalStorage
 You Can sort TOdos by Date, Inportance, and what todos the user has they day they are on.
+Live website https://discord.com/channels/@me/1029190177589047387/1040018419426275520
